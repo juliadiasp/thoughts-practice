@@ -5,16 +5,16 @@ module.exports = class TaskController {
     res.render("tasks/create");
   }
 
-  static createTaskSave(req, res) {
+  static async createTaskSave(req, res) {
     const task = {
       title: req.body.title,
       description: req.body.description,
       done: false,
     };
 
-    Task.create(task)
-      .then(res.redirect("/tasks"))
-      .catch((err) => console.log());
+    await Task.create(task);
+
+    res.redirect("/tasks");
   }
 
   static async toggleTaskStatus(req, res) {
